@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package todo;
+
+import "google/protobuf/empty.proto";
+
+message TodoElement {
+  string Id = 1;
+  string Title = 2;
+  string Description = 3;
+  bool Finished = 4;
+}
+
+message TodoId {
+  string Id = 1;
+}
+
+message Succeed {
+  bool value = 1;
+}
+
+service ToDoService{
+  rpc CreateTodo(TodoElement) returns (Succeed) {}
+  rpc GetTodo(TodoId) returns (TodoElement) {}
+  rpc GetAllTodos(google.protobuf.Empty) returns (stream TodoElement){}
+  rpc FinishTodo(TodoId) returns (Succeed) {}
+  rpc EditTodo(TodoElement) returns (Succeed){}
+  rpc RemoveTodo(TodoId) returns (Succeed) {}
+}
+
