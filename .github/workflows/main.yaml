@@ -20,7 +20,7 @@ jobs: # stages to run in pipeline (e.g. run in parallel)
           versionSpec: '5.x'
       - name: Determine version from commit messages
         id: gitversion # id to later be referenced
-        uses: GitTools/actions@v0.11.0
+        uses: gittools/actions/gitversion/execute@v0.11.0
       - name: Build and publish image
         run: |
           echo "Calculated version: ${{ steps.gitversion.outputs.semVer }}";
