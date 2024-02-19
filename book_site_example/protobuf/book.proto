@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+enum BookCategory {
+    UNSPECIFIED = 0;
+    SCIENCE_FICTION = 1;
+    SELF_HELP = 2;
+    MYSTERY = 3;
+}
+
+message Book {
+    int32 id = 1;
+    string title = 2;
+    BookCategory category = 3;
+}
+
+message Empty {
+
+}
+
+message Status {
+    bool status = 1;
+}
+
+message BookTitle {
+    string title = 1;
+}
+
+service Store {
+    rpc GetAllBooks (Empty) returns (stream Book) {}
+    rpc GetBook (BookTitle) returns (Book) {}
+    rpc AddBook (Book) returns (Book) {}
+    rpc RemoveBook (BookTitle) returns (Status) {}
+}
+
+
