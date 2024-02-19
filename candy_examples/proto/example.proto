@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+message Candy {
+  string name = 1;
+  int32 id = 2;
+}
+
+message CandyBox {
+  Candy one_candy = 1;
+  repeated Candy many_candies = 2;
+}
+
+
+
+
+

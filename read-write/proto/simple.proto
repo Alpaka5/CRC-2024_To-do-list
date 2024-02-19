@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package example2.simple;
+
+message Simple {
+  uint32 id = 1;
+  string name = 2;
+  bool is_simple = 3;
+  repeated int32 count = 4;
+}
+
+
