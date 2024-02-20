@@ -3,7 +3,10 @@ import grpc
 
 from book_site_example.service.store import MyStoreService
 from concurrent import futures
-import book_site_example.proto.protobuf.book_pb2_grpc as book_pb2_grpc
+
+#####################################
+# Generate a protocol buffer from protobuf directory
+# import book_site_example.proto.protobuf.book_pb2_grpc as book_pb2_grpc
 
 
 def serve():

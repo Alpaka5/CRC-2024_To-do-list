@@ -1,5 +1,7 @@
 import csv
-import book_site_example.proto.protobuf.book_pb2 as book_pb2
+#####################################
+# Generate a protocol buffer from protobuf directory
+# import book_site_example.proto.protobuf.book_pb2 as book_pb2
 
 
 class DatabaseConnection:

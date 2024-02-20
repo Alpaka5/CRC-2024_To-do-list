@@ -2,7 +2,9 @@ import argparse
 import random
 
 from client import Client
-import protobuf.book_pb2 as book_pb2
+#####################################
+# Generate a protocol buffer from protobuf directory
+# import protobuf.book_pb2 as book_pb2
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
