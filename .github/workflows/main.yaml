@@ -1,0 +1,36 @@
+name: CRC sample main branch build
+on: # when the action will be triggered
+  push:
+    branches:
+      - main
+      - feature/*
+env: # define variables used in pipeline
+  DOCKERHUB: grekkq/getting-started
+jobs: # stages to run in pipeline (e.g. run in parallel)
+  build-and-publish-image:
+    runs-on: ubuntu-latest
+    steps: # this will run in the same context (on the same machine)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # needed for gitversion to function correctly
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+      - name: Determine version from commit messages
+        id: gitversion # id to later be referenced
+        uses: gittools/actions/gitversion/execute@v0.11.0
+      - name: Build and publish image
+        run: |
+          echo "Calculated version: ${{ steps.gitversion.outputs.semVer }}";
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin;
+          docker build ${{ github.workspace }}/lectures/01 -t $DOCKERHUB:${{ steps.gitversion.outputs.semVer }};
+          docker push $DOCKERHUB:${{ steps.gitversion.outputs.semVer }};
+          # Add latest tag
+          docker tag $DOCKERHUB:${{ steps.gitversion.outputs.semVer }} $DOCKERHUB:latest;
+          docker push $DOCKERHUB:latest;
+      - name: Tag a release
+        run: |
+          git tag ${{ steps.gitversion.outputs.semVer }}
+          git push origin ${{ steps.gitversion.outputs.semVer }}
